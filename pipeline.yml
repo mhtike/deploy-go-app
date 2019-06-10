@@ -42,7 +42,7 @@ jobs:
         path: gopath/src/github.com/mhtike/simple-go-web-app
 
       run:
-        path: task_run_go_app.sh
+        path: deploy-go-app/task_run_go_app.sh
   - put: deploy-web-app
     params:
       manifest: app/manifest.yml
