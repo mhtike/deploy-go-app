@@ -1,10 +1,5 @@
 ---
 resources:
-- name: tutorial
-  type: git
-  source:
-    uri: https://github.com/mhtike/concourse-tutorial.git
-    branch: develop
 - name: app
   type: git
   source:
@@ -24,8 +19,7 @@ jobs:
 - name: deploy-app
   public: true
   serial: true
-  plan:
-  - get: tutorial
+
   - get: app
     trigger: true
   - task: web-app-tests
@@ -37,12 +31,11 @@ jobs:
         source: {repository: golang, tag: 1.9-alpine}
 
       inputs:
-      - name: tutorial
       - name: app
         path: gopath/src/github.com/mhtike/simple-go-web-app
 
       run:
-        path: tutorial/tutorials/basic/job-inputs/task_run_tests.sh
+        path: ./deploy-go-app/task_run_tests.sh
   - put: deploy-web-app
     params:
       manifest: app/manifest.yml
