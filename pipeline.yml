@@ -3,12 +3,12 @@ resources:
 - name: tutorial
   type: git
   source:
-    uri: https://github.com/mhtike/concourse-tutorial.git
+    uri: https://github.com/starkandwayne/concourse-tutorial.git
     branch: develop
 - name: app
   type: git
   source:
-    uri: https://github.com/mhtike/simple-go-web-app.git
+    uri: https://github.com/cloudfoundry-community/simple-go-web-app.git
 
 - name: deploy-web-app
   type: cf
@@ -39,10 +39,10 @@ jobs:
       inputs:
       - name: tutorial
       - name: app
-        path: gopath/src/github.com/mhtike/simple-go-web-app
+        path: gopath/src/github.com/cloudfoundry-community/simple-go-web-app
 
       run:
-        path: concourse/deploy-go-app/task_run_go_app.sh
+        path: task_run_tests.sh
   - put: deploy-web-app
     params:
       manifest: app/manifest.yml
