@@ -1,11 +1,12 @@
 ---
 resources:
-- name: resource-web-app
+- name: my_repo
   type: git
   source:
     uri: https://github.com/mhtike/simple-go-web-app.git
+    branch: master
 
-- name: resource-deploy-web-app
+- name: pas
   type: cf
   source:
     api: ((cf-api))
@@ -13,22 +14,18 @@ resources:
     password: ((cf-password))
     organization: ((cf-organization))
     space: ((cf-space))
-    skip_cert_check: false
+    skip_cert_check: true
 
 jobs:
-- name: job-deploy-app
-  public: true
+- name: deploy-app
   serial: true
   plan:
-  - get: resource-web-app
-  - task: build
-    file: resource-web-app/build.yml
-  - put: resource-deploy-web-app
+  - get: my_repo
+  - put: pas
     params:
-      manifest: build-output/manifest.yml
-      environment_variables:
-        key: value
-        key2: value2
+      manifest: my_repo/manifest.yml
+      path: repo
+
 
 #
 #
