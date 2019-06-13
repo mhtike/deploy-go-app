@@ -24,7 +24,7 @@ jobs:
   - put: pas
     params:
       manifest: my_repo/manifest.yml
-      path: repo
+      path: my_repo
 
 
 #
